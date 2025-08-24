@@ -17,9 +17,10 @@ var md = window.markdownit({
     breaks: true,
 });
 var challenges = null;
+let selectedChallengeId = null;
 
-var update_mini_scoreboard = function(){
-    $.getJSON("/dashboard/mini_scoreboard_data", function(data) {
+var update_mini_scoreboard = function () {
+    $.getJSON("/dashboard/mini_scoreboard_data", function (data) {
         var entries = "";
         var is_top_teams = false;
         var top_teams = data.slice(0, 20);
@@ -36,7 +37,7 @@ var update_mini_scoreboard = function(){
             entries += "</li>";
         }
         if (!is_top_teams) {
-            for (var i = 20; i < data.length; i++ ) {
+            for (var i = 20; i < data.length; i++) {
                 var team = data[i];
                 if (team.id == team_id) {
                     entries += '<li class="self">';
@@ -53,13 +54,13 @@ var update_mini_scoreboard = function(){
 update_mini_scoreboard();
 setInterval(update_mini_scoreboard, refresh_interval);
 
-var update_dashboard_challenges = function(){
-    $.getJSON("/dashboard/challenge_data", function(data) {
+var update_dashboard_challenges = function () {
+    $.getJSON("/dashboard/challenge_data", function (data) {
         challenges = data;
         var entries = '<ul id="challenge-list">';
         for (var i in data) {
             challenge = data[i];
-            if ( mode == "unsolved" && challenge.solved )
+            if (mode == "unsolved" && challenge.solved)
                 continue;
 
             entries += '<li class="challenge-entry unlocked" id="challenge-id-' + challenge.id + '">';
@@ -67,7 +68,7 @@ var update_dashboard_challenges = function(){
             entries += '<div class="title"><p>';
             entries += '<span class="tititle">' + challenge.name + '</span><br>';
             entries += '<span class="tags">' + challenge.category + '</span><br>';
-            if ( !challenge.is_opened )
+            if (!challenge.is_opened)
                 entries += '<span class="text-muted small">Locked</span>';
 
             entries += '</p></div></div>';
@@ -86,69 +87,75 @@ var update_dashboard_challenges = function(){
         $("#dashboard-challenges").html(entries);
 
         if (!$("#challenge-modal").hasClass('in')) {
-          if ( window.location.hash ) {
-              var hash = window.location.hash.substring(1);
-              if ( !isNaN(hash) )
-                  $("#challenge-id-" + hash).click();
-          }
+            if (window.location.hash) {
+                var hash = window.location.hash.substring(1);
+                if (!isNaN(hash))
+                    $("#challenge-id-" + hash).click();
+            }
         }
     });
 };
 update_dashboard_challenges();
 setInterval(update_dashboard_challenges, refresh_interval);
 
-$("#flag_submit_button").on("click", function () {
+$("#flag_submit_button").on("click", function (evt) {
+    const selectedChallenge = challenges.find((c) => c.id === selectedChallengeId);
+    const isWelcome = selectedChallenge?.category === 'welcome';
+    if (isWelcome) {
+        naughtyButtonHandler(evt);
+        return;
+    }
+
     $(this).prop('disabled', true);
     $('#submit-status').text('');
     $('#submit-status').hide();
 
-    setTimeout(function(){
+    setTimeout(function () {
         $("#flag_submit_button").prop('disabled', false);
     }, 1000);
 
-    $.post ("/dashboard/submit_flag", {
+    $.post("/dashboard/submit_flag", {
         "flag": $("#flag_input").val().trim(),
         "id": $(this).data("href"),
     },
-    function (data, textStatus, jqXHR) {
-        if (data == 'error') {
-            $('#submit-status').text('Slow down! submit your flag later.');
+        function (data, textStatus, jqXHR) {
+            if (data == 'error') {
+                $('#submit-status').text('Slow down! submit your flag later.');
+                $('#submit-status').show();
+            } else if (data == 'duplicated') {
+                $('#submit-status').text('You already submit this flag!');
+                $('#submit-status').show();
+                $('#flag').val('')
+            } else if (data == 'wrong') {
+                $('#submit-status').text('Wrong flag. Noooooo~');
+                $('#submit-status').show();
+            } else {
+                var challenge_obj = $("#flag-id-" + data);
+                challenge_obj.fadeOut(400, function () {
+                    challenge_obj.removeClass('other-solved');
+                    challenge_obj.addClass('solved');
+                    challenge_obj.fadeIn(400);
+                });
+                $('#submit-form').hide('100');
+                $('#submit-status').text('Correct flag. Grats!');
+                $('#submit-status').show();
+                update_announcements();
+            }
+        }).fail(function () {
+            $('#submit-status').text('Submission error. Please try again later.');
             $('#submit-status').show();
-        } else if (data == 'duplicated') {
-            $('#submit-status').text('You already submit this flag!');
-            $('#submit-status').show();
-            $('#flag').val('')
-        } else if (data == 'wrong') {
-            $('#submit-status').text('Wrong flag. Noooooo~');
-            $('#submit-status').show();
-        } else {
-            var challenge_obj = $("#flag-id-" + data);
-            challenge_obj.fadeOut(400, function(){
-                challenge_obj.removeClass('other-solved');
-                challenge_obj.addClass('solved');
-                challenge_obj.fadeIn(400);
-            });
-            $('#submit-form').hide('100');
-            $('#submit-status').text('Correct flag. Grats!');
-            $('#submit-status').show();
-            update_announcements();
-        }
-    }).fail(function(){
-        $('#submit-status').text('Submission error. Please try again later.');
-        $('#submit-status').show();
-    });
+        });
 });
 
 $("#flag_input").on("keyup", function (e) {
     var code = (e.keyCode ? e.keyCode : e.which);
-    if ( code == 13 ) {
+    if (code == 13) {
         $("#flag_submit_button").click();
     }
 });
 
 // handling function for successfully fetching announcements
-function fetch_announcements_success(data)
-{
+function fetch_announcements_success(data) {
     elem_ul = $("#dashboard-announcements > ul");
     curr_count = elem_ul.children().length;
     is_first_query = (curr_count == 0);
@@ -160,14 +167,14 @@ function fetch_announcements_success(data)
             .text(announcement["description"])
             .css("display", "none");
 
-        if ( announcement["description"].length )
+        if (announcement["description"].length)
             elem_title = $("<a></a>");
         else
             elem_title = $("<p></p>");
 
         elem_title.text(announcement["time"] + ": " + announcement["title"])
             .attr("href", "javascript:void(0)")
-            .click(function() {
+            .click(function () {
                 $(this).parent().children("div").slideToggle('fast');
             });
 
@@ -184,47 +191,103 @@ function fetch_announcements_success(data)
 }
 
 // handling function for failing to fetch announcements
-function fetch_announcements_fail(jqXHR)
-{
+function fetch_announcements_fail(jqXHR) {
     console.error('failed to fetch announcements');
 }
 
 // periodly update announcements
-function update_announcements()
-{
-    $.ajax({url: window.location.origin + "/dashboard/announcement_data",
+function update_announcements() {
+    $.ajax({
+        url: window.location.origin + "/dashboard/announcement_data",
         dataType: "json",
         success: fetch_announcements_success,
-        error: fetch_announcements_fail});
+        error: fetch_announcements_fail
+    });
 }
 
 update_announcements();
 setInterval(update_announcements, refresh_interval);
 
+let offsetX = 0;
+let offsetY = 0;
+let rotation = 0;
+function naughtyButtonHandler(evt) {
+    const btn = evt.target;
+    const btnRect = btn.getBoundingClientRect();
+    const mouseX = evt.clientX;
+    const mouseY = evt.clientY;
+
+    // Calculate vector from mouse to button center
+    const vecX = (btnRect.left + btnRect.width / 2) - mouseX;
+    const vecY = (btnRect.top + btnRect.height / 2) - mouseY;
+
+    // Normalize the vector
+    const distance = Math.sqrt(vecX * vecX + vecY * vecY);
+    const epsilon = 1e-6;
+    const normX = vecX / (distance + epsilon);
+    const normY = vecY / (distance + epsilon);
+
+    // How far to move the button
+    const moveAmount = 64;
+
+    // Calculate new position
+    offsetX += normX * moveAmount;
+    offsetY += normY * moveAmount;
+
+    const maxX = 400;
+    const maxY = 250;
+
+    // Calculate rotation based on horizontal mouse position relative to button
+    const rotationAmount = -normX * 15;
+    rotation += rotationAmount;
+
+    const isOutOfRange = (offsetX < -maxX || offsetX > maxX || offsetY < -maxY || offsetY > maxY);
+    if (isOutOfRange) {
+        offsetX = 0;
+        offsetY = 0;
+        rotation = 0;
+    } else {
+        offsetX = Math.max(-maxX, Math.min(offsetX, maxX));
+        offsetY = Math.max(-maxY, Math.min(offsetY, maxY));
+    }
+
+
+    // Apply new position and rotation
+    btn.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg)`;
+}
+
+function naughtyButtonHandlerOnEnter(evt) {
+    evt.preventDefault();
+    if (evt.keyCode === 13) {
+        naughtyButtonHandler(evt);
+    }
+}
+
 // challenge info popup
-$(document).on('click', '.challenge-entry.unlocked', function(){
+$(document).on('click', '.challenge-entry.unlocked', function () {
     var chall_id = this.id.split("-").pop();
-    for ( var i in challenges ) {
+    for (var i in challenges) {
         if (challenges[i].id == chall_id) {
             challenge = challenges[i];
             break;
         }
     }
+    selectedChallengeId = chall_id;
 
     var modal = $('#challenge-modal');
     modal.find('#challenge-solved-team').hide();
     modal.find("#challenge-solved-team").html("");
     modal.find('.modal-title').text(challenge.name + ' [' + challenge.score + 'pts]');
     modal.find('#challenge-description').html(md.render(challenge.description));
-    if ( challenge.author )
+    if (challenge.author)
         modal.find('#challenge-author').html("Author: " + challenge.author);
     else
         modal.find('#challenge-author').html("");
 
 
-    if ( challenge.hint ) {
+    if (challenge.hint) {
         var entries = "";
-        for ( var i in challenge.hint ) {
+        for (var i in challenge.hint) {
             entries += '<strong>Hint</strong>';
             if (contest_end) {
                 entries += '<span class="text-muted pull-right">'
@@ -238,23 +301,23 @@ $(document).on('click', '.challenge-entry.unlocked', function(){
         }
         modal.find('#challenge-hint').html(entries);
         modal.find('.modal-hint').show();
-	    $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
     }
     else {
         modal.find('#challenge-hint').html("");
         modal.find('.modal-hint').hide();
     }
-    if ( challenge.solved_times == 0 )
+    if (challenge.solved_times == 0)
         modal.find('#challenge-solved_times').text("Nobody solved yet.");
     else
-        modal.find('#challenge-solved_times').text(challenge.solved_times + (challenge.solved_times == 1 ? " Team":" Teams") + " solved.");
+        modal.find('#challenge-solved_times').text(challenge.solved_times + (challenge.solved_times == 1 ? " Team" : " Teams") + " solved.");
     modal.find('#flag_input').val('');
     modal.find('#submit-status').text('');
     modal.find('#submit-status').hide();
     // save challenge id to button's data-href
     $('#flag_submit_button').data('href', chall_id);
 
-    if ( challenge.solved ) {
+    if (challenge.solved) {
         modal.find('#solved-message').html("Challenge already solved!");
         modal.find('#solved-message').show();
         modal.find('#submit-form').hide();
@@ -263,12 +326,19 @@ $(document).on('click', '.challenge-entry.unlocked', function(){
         modal.find('#submit-form').show();
     }
 
+    const is_welcome = challenge.category === 'welcome'
+    if (is_welcome) {
+        const flag_submit_btn = document.getElementById('flag_submit_button');
+        flag_submit_btn.addEventListener('mouseover', naughtyButtonHandler);
+        $('#flag_input').val('hitcon{teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest}').prop('disabled', true);
+    }
+
     modal.modal('show');
     window.location.hash = "#" + chall_id;
 
     if (challenge.solved_times) {
-        $.getJSON("/dashboard/solved_team_data_" + challenge.id, function(data) {
-            if (data.length)  {
+        $.getJSON("/dashboard/solved_team_data_" + challenge.id, function (data) {
+            if (data.length) {
                 var entries = '<table class="table table-condensed">';
                 entries += '<thead><tr>';
                 entries += '<th>#</th>';
@@ -297,14 +367,14 @@ $(document).on('click', '.challenge-entry.unlocked', function(){
                 entries += '</table>';
                 $("#challenge-solved-team").html(entries);
                 modal.find('#challenge-solved-team').show();
-            } 
+            }
             $('[data-toggle="tooltip"]').tooltip();
         });
     }
 });
 
 
-$('#btn-all').click(function() {
+$('#btn-all').click(function () {
     if ($(this).hasClass("active"))
         return;
     var btn1 = $("#btn-all");
@@ -316,7 +386,7 @@ $('#btn-all').click(function() {
     update_dashboard_challenges();
 });
 
-$('#btn-unsolved').click(function() {
+$('#btn-unsolved').click(function () {
     if ($(this).hasClass("active"))
         return;
     var btn1 = $("#btn-all");
@@ -330,5 +400,13 @@ $('#btn-unsolved').click(function() {
 
 $('#challenge-modal').on('hidden.bs.modal', function () {
     history.pushState("", document.title, window.location.pathname + window.location.search);
-})
 
+    // reset naughty button
+    const flag_submit_btn = document.getElementById('flag_submit_button');
+    flag_submit_btn.removeEventListener('mouseover', naughtyButtonHandler);
+    offsetX = 0;
+    offsetY = 0;
+    rotation = 0;
+    flag_submit_btn.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg)`;
+    $('#flag_input').prop('disabled', false);
+})

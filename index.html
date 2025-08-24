@@ -1,78 +1,86 @@
+
 <!DOCTYPE html>
 <html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="twitter:card" content="summary"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="flag" content="hitcon{HITCON-verse let's gooooooo}">
+    
+    <meta property="og:title" content="HITCON CTF 2025"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://ctf2024.hitcon.org"/>
+    <meta property="og:image" content="http://ctf.hitcon.org/img/og_img.png"/>
+    <meta property="og:site_name" content="HITCON CTF 2025"/>
+    <meta property="og:description" content="Online Jeopardy, Jul 12-14 2024"/>
+    <title>HITCON CTF 2025</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="twitter:card" content="summary" />
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="/static/img/hitcon-ctf_monotone.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Aldrich" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
 
-  <meta name="flag" content="hitcon{HITCON-verse let's gooooooo}">
+    
+    
+  </head>
+  <body>
+    <nav id="top-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">HITCON CTF 2025</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+              <li><a href="/dashboard/">Dashboard</a></li>
+            
+	    <li><a href="/dashboard/scoreboard">Scoreboard</a></li>
+          </ul>
 
-  <meta property="og:title" content="HITCON CTF 2025" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ctf2025.hitcon.org" />
-  <meta property="og:image" content="http://ctf.hitcon.org/img/og_img.png" />
-  <meta property="og:site_name" content="HITCON CTF 2025" />
-  <meta property="og:description" content="Online Jeopardy, Aug 22-24 2025" />
-  <title>HITCON CTF 2025</title>
+          <ul class="nav navbar-nav navbar-right">
+            
+              <li></li>
+              <li></li>
+              
+            
+            <li>
+              <p id="timer" class="navbar-text"></p>
+              <input type="hidden" id="contest_start_time" value="1755871200.0">
+              <input type="hidden" id="contest_end_time" value="1756044000.0">
+              <input type="hidden" id="current_time" value="1756058448.890912">
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-  <link rel="shortcut icon" type="image/png" href="/static/img/hitcon-ctf_monotone.png" />
-  <link href="https://fonts.googleapis.com/css?family=Aldrich" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/css/main.css">
-</head>
+      
+<div id="particles-js">
+</div>
 
-<body>
-  <nav id="top-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse"
-          aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">HITCON CTF 2025</a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-navbar-collapse">
-        <ul class="nav navbar-nav">
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li>
-            <p id="timer" class="navbar-text"></p>
-            <input type="hidden" id="contest_start_time" value="1755871200.0">
-            <input type="hidden" id="contest_end_time" value="1756044000.0">
-          </li>
-        </ul>
-      </div>
-  </nav>
-  <div id="particles-js">
-  </div>
-  <div id="home-masthead">
-    <div class="container">
-      <div class="title">HITCON CTF 2025</div>
-      <div class="subtitle">
-          UTC 08/22 14:00 ~ 08/24 14:00
-      </div>
-      <div class="subtitle">
-      Register: Registration opens on August 18th <br>
-      Discord: <a href="https://discord.gg/ypqCsNxHmc">https://discord.gg/ypqCsNxHmc</a>
-      </div>
+<div id="home-masthead">
+  <div class="container">
+    <div class="title">HITCON CTF 2025</div>
+    <div class="subtitle">
+      UTC 08/22 14:00 ~ 08/24 14:00
     </div>
+    <div class="subtitle">Discord: <a href="https://discord.gg/ypqCsNxHmc">https://discord.gg/ypqCsNxHmc</a></div>
   </div>
+</div>
 
-  <div id="content" class="container" style="transform: translate(0, -12rem);">
-	<div id="awards-final" class="container text-center">
+<div id="content" class="container" style="transform: translate(0, -12rem);">
+  <div id="awards-final" class="container text-center">
     <h3>Awards</h3>
     <!-- 4x1 grid -->
     <div class="row text-left">
@@ -98,195 +106,235 @@
       </div>
     </div>
   </div>
-    <div id="contest-info">
-      <div class="col-lg-6">
-        <h2>競賽說明</h2>
-        <h3>預賽</h3>
+  <div id="contest-info">
+    <div class="col-lg-6">
+      <h2>競賽說明</h2>
+      <h3>預賽</h3>
+      <ul>
+        <li>競賽為 48 小時的線上 Jeopardy 形式 CTF</li>
+        <li>競賽採取積分累計制，依分數高低進行排名<br>
+          同分者，依最後一次正確提交的時間判定</li>
+        <li>每道題目的分數將會根據解題隊伍數即時進行動態調整</li>
+        <li>Flag 形式為: <code>hitcon{printable ascii+}</code></li>
+        <li>國內排名前 4 名的隊伍，將會被邀請參加在 10/17 ~ 10/18 舉辦於台北文創的 HITCON CTF 資安交流賽</li>
         <ul>
-          <li>競賽為 48 小時的線上 Jeopardy 形式 CTF</li>
-          <li>競賽採取積分累計制，依分數高低進行排名<br>
-            同分者，依最後一次正確提交的時間判定</li>
-          <li>每道題目的分數將會根據解題隊伍數即時進行動態調整</li>
-          <li>Flag 形式為: <code>hitcon{printable ascii+}</code></li>
-          <li>國內排名前 4 名的隊伍，將會被邀請參加在 10/17 ~ 10/18 舉辦於台北文創的 HITCON CTF 資安交流賽</li>
-		  <ul>
-			<li>現場至少需有 2 位隊員出席，並且現場出席隊員須具備中華民國國籍或永久居留證</li>
-            <li>初賽註冊隊伍時須將國家設成 Taiwan</li>
-            <li>不提供機票補助</li>
-		  </ul>
+          <li>現場至少需有 2 位隊員出席，並且現場出席隊員須具備中華民國國籍或永久居留證</li>
+          <li>初賽註冊隊伍時須將國家設成 Taiwan</li>
+          <li>不提供機票補助</li>
         </ul>
-      </div>
+      </ul>
+    </div>
 
-      <div class="col-lg-6">
-        <h2>Contest Information</h2>
-        <h3>Quals</h3>
+    <div class="col-lg-6">
+      <h2>Contest Information</h2>
+      <h3>Quals</h3>
+      <ul>
+        <li>This is an online jeopardy style CTF last for 48 hours.</li>
+        <li>Teams earn points from solving challenges, and are ranked by their total points.<br>If two teams get a
+          same score, their rank is decided by who has an earlier latest correct submission.</li>
+        <li>The points of each challenge will be dynamically adjusted based on how many teams have solved it.</li>
+        <li>Flag format: <code>hitcon{printable ascii+}</code></li>
+        <li>Top 4 Taiwan teams will be invited to another on-site competition on October 17th and 18th in Taipei, Taiwan
+        </li>
         <ul>
-          <li>This is an online jeopardy style CTF last for 48 hours.</li>
-          <li>Teams earn points from solving challenges, and are ranked by their total points.<br>If two teams get a
-            same score, their rank is decided by who has an earlier latest correct submission.</li>
-          <li>The points of each challenge will be dynamically adjusted based on how many teams have solved it.</li>
-          <li>Flag format: <code>hitcon{printable ascii+}</code></li>
-		  <li>Top 4 Taiwan teams will be invited to another on-site competition on October 17th and 18th in Taipei, Taiwan</li>
-          <ul>
-            <li>At least 2 members must be present onsite, and each of those attending must be either a
-              citizen or permanent resident of the R.O.C (Taiwan).</li>
-            <li>Must set the country to Taiwan when they register for the qualification.</li>
-            <li>Flight reimbursement is not provided.</li>
-          </ul>
+          <li>At least 2 members must be present onsite, and each of those attending must be either a
+            citizen or permanent resident of the R.O.C (Taiwan).</li>
+          <li>Must set the country to Taiwan when they register for the qualification.</li>
+          <li>Flight reimbursement is not provided.</li>
         </ul>
-      </div>
+      </ul>
+    </div>
 
-      <div class="col-lg-6">
-        <h2>競賽時間</h2>
+    <div class="col-lg-6">
+      <h2>競賽時間</h2>
+      <ul>
+        <li>
+          08/22(五) 22:00 ~ 08/24(日) 22:00 (UTC+8, 48 小時)
+          <a href="https://ctftime.org/event/2783"><img alt="CTFtime" src="https://ctftime.org/favicon.png"></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-lg-6">
+      <h2>Contest Time</h2>
+      <ul>
+        <li>
+          Aug. 22 (Fri.) 14:00 ~ Aug. 24 (Sun.) 14:00 (UTC, 48 hours)
+          <a href="https://ctftime.org/event/2783"><img alt="CTFtime" src="https://ctftime.org/favicon.png"></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-lg-6">
+      <h2>獎金</h2>
+      <ul>
+        <li>第一名獎金: $5,000 USD</li>
+        <li>第二名獎金: $2,500 USD</li>
+        <li>第三名獎金: $1,000 USD</li>
+      </ul>
+    </div>
+
+    <div class="col-lg-6">
+      <h2>Awards</h2>
+      <ul>
+        <li>1st place: $5,000 USD</li>
+        <li>2nd place: $2,500 USD</li>
+        <li>3rd place: $1,000 USD</li>
+      </ul>
+
+    </div>
+
+    <div class="col-lg-6">
+      <h2>比賽注意事項</h2>
+      <ul>
+        <li>競賽期間，做出以下違規事項者將直接取消資格:</li>
         <ul>
-          <li>
-            08/22(五) 22:00 ~ 08/24(日) 22:00 (UTC+8, 48 小時)
-            <a href="https://ctftime.org/event/2783"><img alt="CTFtime" src="https://ctftime.org/favicon.png"></a>
-          </li>
+          <li>進行任何破壞競賽公平公正原則之行為</li>
+          <li>散播、與其它隊伍交換解法或 Flag</li>
+          <li>除競賽中提供的題目外，對競賽系統、參賽者及其它人員進行攻擊</li>
         </ul>
-      </div>
+        <li>一個隊伍只需註冊一個帳號</li>
+        <li>每個隊伍沒有人數限制</li>
+        <li>每位參賽者最多僅能參與一個隊伍</li>
+      </ul>
+    </div>
 
-      <div class="col-lg-6">
-        <h2>Contest Time</h2>
+    <div class="col-lg-6">
+      <h2>Contest Rules</h2>
+      <ul>
+        <li>During the contest, any of the following behaviors will lead to disqualification:</li>
         <ul>
-          <li>
-            Aug. 22 (Fri.) 14:00 ~ Aug. 24 (Sun.) 14:00 (UTC, 48 hours)
-            <a href="https://ctftime.org/event/2783"><img alt="CTFtime" src="https://ctftime.org/favicon.png"></a>
-          </li>
+          <li>Any behavior that compromises the fairness of contest</li>
+          <li>Publishing, exchanging challenge solutions or Flags</li>
+          <li>Attacking any personnel, including participants and non-participants, or the contest system itself</li>
         </ul>
+        <li>Each team only needs to register one account.</li>
+        <li>There is no limit for team size.</li>
+        <li>Each player can only join one team.</li>
+      </ul>
+    </div>
+
+    <div class="col-lg-6">
+      <h2>保留權利</h2>
+      <p>主辦單位可依狀況調整競賽的內容、流程及規則。</p>
+    </div>
+    <div class="col-lg-6">
+      <h2>Rights Reserved</h2>
+      <p>Organizers may rearrange/modify contest challenges, proceedings, and rules.</p>
+    </div>
+
+    <div class="col-lg-6">
+      <h2>Advisor</h2>
+      <p class="col-lg-12" style="height: 100px">
+        <a href="https://moda.gov.tw/ADI/"><img class="col-lg-6 col-xs-6"
+            style="/*padding-top: 10px;*/ position: absolute; top: 50%; transform: translateY(-50%);"
+            src="/static/img/ADI-White.png" title="Administration for Digital Industries, moda"></a>
+      </p>
+    </div>
+
+    <div class="col-lg-6">
+      <h2>Organizers</h2>
+      <p class="col-lg-12" style="height: 100px">
+        <a href="http://hacker.org.tw/"><img class="col-lg-6 col-xs-6"
+            style="position: absolute; top: 50%; transform: translateY(-50%);"
+            src="/static/img/hit_logo_white2.png" title="Hacks in Taiwan Association"></a>
+        <a href="https://www.itri.org.tw/"><img class="col-lg-6 col-xs-6"
+            style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%);"
+            src="https://ctf.hitcon.org/img/itri.png" title="Industrial Technology Research Institute"></a>
+      </p>
+    </div>
+
+    <div class="col-lg-6">
+      <h2>Partner</h2>
+      <p class="col-lg-12" style="height: 100px">
+        <a href="https://defihacklabs.io/"><img class="col-lg-6 col-xs-6"
+            style="/*padding-top: 10px;*/ position: absolute; top: 50%; transform: translate(-10%,-50%); width: 75%"
+            src="/static/img/defihacklabs.png" title="DeFiHackLabs"></a>
+      </p>
+    </div>
+
+    <div class="col-lg-6">
+      <h2>Special Thank</h2>
+      <div class="row" style="height: 100px;">
+        <div class="col-xs-4 col-lg-3 special-thank-logo" style="aspect-ratio: 1/1;">
+          <a href="https://mocsctf.com/">
+            <img src="/static/img/moctf-logo.png" title="MOCSCTF">
+          </a>
+        </div>
+        <h3 class="col-xs-8" style="margin-top: 0;">
+          Macau Cyber Security and Capture The Flag Association
+        </h3>
       </div>
+    </div>
 
-      <div class="col-lg-6">
-        <h2>獎金</h2>
-        <ul>
-          <li>第一名獎金: $5,000 USD</li>
-          <li>第二名獎金: $2,500 USD</li>
-          <li>第三名獎金: $1,000 USD</li>
-        </ul>
-      </div>
+  </div><!-- #contest-info -->
 
-      <div class="col-lg-6">
-        <h2>Awards</h2>
-        <ul>
-          <li>1st place: $5,000 USD</li>
-          <li>2nd place: $2,500 USD</li>
-          <li>3rd place: $1,000 USD</li>
-        </ul>
+</div>
+</div>
 
-      </div>
+<style>
+  .special-thank-logo,
+  .special-thank-logo a {
+    display: block;
+    height: 100%;
+    position: relative;
+  }
 
-      <div class="col-lg-6">
-        <h2>比賽注意事項</h2>
-        <ul>
-          <li>競賽期間，做出以下違規事項者將直接取消資格:</li>
-          <ul>
-            <li>進行任何破壞競賽公平公正原則之行為</li>
-            <li>散播、與其它隊伍交換解法或 Flag</li>
-            <li>除競賽中提供的題目外，對競賽系統、參賽者及其它人員進行攻擊</li>
-          </ul>
-          <li>每位參賽者最多僅能參與一個隊伍</li>
-        </ul>
-      </div>
+  .special-thank-logo img {
+    display: block;
+    height: 100%;
+    object-fit: contain;
+  }
+</style>
 
-      <div class="col-lg-6">
-        <h2>Contest Rules</h2>
-        <ul>
-          <li>During the contest, any of the following behaviors will lead to disqualification:</li>
-          <ul>
-            <li>Any behavior that compromises the fairness of contest</li>
-            <li>Publishing, exchanging challenge solutions or Flags</li>
-            <li>Attacking any personnel, including participants and non-participants, or the contest system itself</li>
-          </ul>
-          <li>Each player can only join one team.</li>
-        </ul>
-      </div>
+      <form id="logoutform" method="post" action="/team/logout">
+        <input type="hidden" name="csrfmiddlewaretoken" value="qrClIXcsJ5np4t6C8NKmGDVkEFLrbsUpWansfKbDvkbpt2rHRV5UIv0mBtJp0CiT">
+      </form>
+      <hr>
+      <footer id="footer">
+        <h4 class="text-muted">&copy; HITCON CTF Team 2025</h4>
+	<p class="text-muted">Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb988f9dc9cbc9cebb93928f989495d594899c">[email&#160;protected]</a></p>
+      </footer>
 
-      <div class="col-lg-6">
-        <h2>保留權利</h2>
-        <p>主辦單位可依狀況調整競賽的內容、流程及規則。</p>
-      </div>
-      <div class="col-lg-6">
-        <h2>Rights Reserved</h2>
-        <p>Organizers may rearrange/modify contest challenges, proceedings, and rules.</p>
-      </div>
+      <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+      <script src="/static/js/bootstrap.min.js"></script>
+      <script src="/static/js/markdown-it.min.js"></script>
+      <script src="/static/js/moment.min.js"></script>
+      <script src="/static/js/main.js"></script>
+      <script>
+        var refresh_interval = 30 * 1000;
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+        
+        var team_id = 26;
+        
 
-      <div class="col-lg-6">
-        <h2>Advisor</h2>
-        <p class="col-lg-12" style="height: 100px">
-          <a href="https://moda.gov.tw/ADI/"><img class="col-lg-6 col-xs-6"
-              style="/*padding-top: 10px;*/ position: absolute; top: 50%; transform: translateY(-50%);"
-              src="/static/img/ADI-White.png" title="Administration for Digital Industries, moda"></a>
-        </p>
-      </div>
+        var current_time = 1756058448.890912;
+        var contest_end_time = 1756044000.0;
+        var contest_end = current_time >= contest_end_time;
+        document.getElementById("navlogout").onclick = function() {
+            document.getElementById("logoutform").submit();
+        }
+      </script>
 
-      <div class="col-lg-6">
-        <h2>Organizers</h2>
-        <p class="col-lg-12" style="height: 100px">
-          <a href="http://hacker.org.tw/"><img class="col-lg-6 col-xs-6"
-              style="position: absolute; top: 50%; transform: translateY(-50%);" src="/static/img/hit_logo_white2.png"
-              title="Hacks in Taiwan Association"></a>
-          <a href="https://www.itri.org.tw/"><img class="col-lg-6 col-xs-6"
-              style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%);"
-              src="https://ctf.hitcon.org/img/itri.png" title="Industrial Technology Research Institute"></a>
-        </p>
-      </div>
-
-      <div class="col-lg-6">
-        <h2>Partner</h2>
-        <p class="col-lg-12" style="height: 100px">
-          <a href="https://defihacklabs.io/"><img class="col-lg-6 col-xs-6"
-              style="/*padding-top: 10px;*/ position: absolute; top: 50%; transform: translate(-10%,-50%); width: 75%"
-              src="/static/img/defihacklabs.png" title="DeFiHackLabs"></a>
-        </p>
-      </div>
-
-    </div><!-- #contest-info -->
-
-  </div>
-
-  <hr>
-  <footer id="footer">
-    <h4 class="text-muted">&copy; HITCON CTF Team 2025</h4>
-    <p class="text-muted">Contact: <a href="mailto: ctf2025@hitcon.org">ctf2025@hitcon.org</a></p>
-  </footer>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="/static/js/bootstrap.min.js"></script>
-  <script src="/static/js/markdown-it.min.js"></script>
-  <script src="/static/js/moment.min.js"></script>
-  <script src="/static/js/main.js"></script>
-  <script>
-    var refresh_interval = 30 * 1000;
-    $(document).ready(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-
-    var team_id = 0;
+      
+<script src="/static/js/particles.min.js"></script>
+<script>
+  particlesJS.load('particles-js', "/static/js/particles.json", function () { });
+</script>
 
 
-    var current_time = Math.floor(Date.now() / 1000);
-    var contest_end_time = 1756044000.0;
-    var contest_end = current_time >= contest_end_time;
-  </script>
+      
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-G2D5G6H63T"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-
-  <script src="/static/js/particles.min.js"></script>
-  <script>
-    particlesJS.load('particles-js', "/static/js/particles.json", function () { });
-  </script>
-
-
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G2D5G6H63T"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-G2D5G6H63T');
-  </script>
-
-</body>
-
+        gtag('config', 'G-G2D5G6H63T');
+      </script>
+      
+  </body>
 </html>

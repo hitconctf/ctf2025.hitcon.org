@@ -7,23 +7,26 @@ function escape_html(str) {
 // nav timer handling script
 var contest_begin_time = parseInt($("#contest_start_time").val(), 10);
 var contest_end_time = parseInt($("#contest_end_time").val(), 10);
-var contest_current_time = new Date().getTime() / 1000; // parseInt($("#current_time").val(), 10);
+var contest_current_time = parseInt($("#current_time").val(), 10);
 
-function update_nav_timer() {
-    function pad(num) {
+function update_nav_timer()
+{
+    function pad(num)
+    {
         return (num < 10 ? "0" + num : num);
     }
 
-    function to_time_string(offset) {
-        var days = Math.floor(offset / 24 / 60 / 60);
-        var hoursleft = Math.floor((offset - (days * 86400)) / 3600);
-        if (days == 0)
-            return hoursleft + ":" + pad(Math.floor((offset % 3600) / 60)) + ":" + pad(Math.floor(offset % 60));
-        else
-            return days + " days " + hoursleft + ":" + pad(Math.floor((offset % 3600) / 60)) + ":" + pad(Math.floor(offset % 60));
+    function to_time_string(offset)
+    {
+	var days = Math.floor(offset/24/60/60);
+	var hoursleft = Math.floor((offset - (days*86400)) / 3600);
+	if (days == 0)
+	  return hoursleft + ":" + pad(Math.floor((offset % 3600) / 60)) + ":" + pad(Math.floor(offset % 60));
+	else
+	  return days + " days " + hoursleft + ":" + pad(Math.floor((offset % 3600) / 60)) + ":" + pad(Math.floor(offset % 60));
     }
 
-    if (contest_current_time == contest_begin_time) {
+    if ( contest_current_time == contest_begin_time ) {
         location.reload();
         return;
     }
