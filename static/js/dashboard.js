@@ -98,62 +98,6 @@ var update_dashboard_challenges = function () {
 update_dashboard_challenges();
 setInterval(update_dashboard_challenges, refresh_interval);
 
-$("#flag_submit_button").on("click", function (evt) {
-    const selectedChallenge = challenges.find((c) => c.id === selectedChallengeId);
-    const isWelcome = selectedChallenge?.category === 'welcome';
-    if (isWelcome) {
-        naughtyButtonHandler(evt);
-        return;
-    }
-
-    $(this).prop('disabled', true);
-    $('#submit-status').text('');
-    $('#submit-status').hide();
-
-    setTimeout(function () {
-        $("#flag_submit_button").prop('disabled', false);
-    }, 1000);
-
-    $.post("/dashboard/submit_flag", {
-        "flag": $("#flag_input").val().trim(),
-        "id": $(this).data("href"),
-    },
-        function (data, textStatus, jqXHR) {
-            if (data == 'error') {
-                $('#submit-status').text('Slow down! submit your flag later.');
-                $('#submit-status').show();
-            } else if (data == 'duplicated') {
-                $('#submit-status').text('You already submit this flag!');
-                $('#submit-status').show();
-                $('#flag').val('')
-            } else if (data == 'wrong') {
-                $('#submit-status').text('Wrong flag. Noooooo~');
-                $('#submit-status').show();
-            } else {
-                var challenge_obj = $("#flag-id-" + data);
-                challenge_obj.fadeOut(400, function () {
-                    challenge_obj.removeClass('other-solved');
-                    challenge_obj.addClass('solved');
-                    challenge_obj.fadeIn(400);
-                });
-                $('#submit-form').hide('100');
-                $('#submit-status').text('Correct flag. Grats!');
-                $('#submit-status').show();
-                update_announcements();
-            }
-        }).fail(function () {
-            $('#submit-status').text('Submission error. Please try again later.');
-            $('#submit-status').show();
-        });
-});
-
-$("#flag_input").on("keyup", function (e) {
-    var code = (e.keyCode ? e.keyCode : e.which);
-    if (code == 13) {
-        $("#flag_submit_button").click();
-    }
-});
-
 // handling function for successfully fetching announcements
 function fetch_announcements_success(data) {
     elem_ul = $("#dashboard-announcements > ul");
@@ -314,8 +258,6 @@ $(document).on('click', '.challenge-entry.unlocked', function () {
     modal.find('#flag_input').val('');
     modal.find('#submit-status').text('');
     modal.find('#submit-status').hide();
-    // save challenge id to button's data-href
-    $('#flag_submit_button').data('href', chall_id);
 
     if (challenge.solved) {
         modal.find('#solved-message').html("Challenge already solved!");
@@ -324,13 +266,6 @@ $(document).on('click', '.challenge-entry.unlocked', function () {
     } else {
         modal.find('#solved-message').hide();
         modal.find('#submit-form').show();
-    }
-
-    const is_welcome = challenge.category === 'welcome'
-    if (is_welcome) {
-        const flag_submit_btn = document.getElementById('flag_submit_button');
-        flag_submit_btn.addEventListener('mouseover', naughtyButtonHandler);
-        $('#flag_input').val('hitcon{teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest}').prop('disabled', true);
     }
 
     modal.modal('show');
@@ -397,16 +332,3 @@ $('#btn-unsolved').click(function () {
     localStorage.setItem('challenge_mode', mode);
     update_dashboard_challenges();
 });
-
-$('#challenge-modal').on('hidden.bs.modal', function () {
-    history.pushState("", document.title, window.location.pathname + window.location.search);
-
-    // reset naughty button
-    const flag_submit_btn = document.getElementById('flag_submit_button');
-    flag_submit_btn.removeEventListener('mouseover', naughtyButtonHandler);
-    offsetX = 0;
-    offsetY = 0;
-    rotation = 0;
-    flag_submit_btn.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg)`;
-    $('#flag_input').prop('disabled', false);
-})
